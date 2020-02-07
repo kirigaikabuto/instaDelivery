@@ -1,0 +1,134 @@
+
+{%extends 'curiers/base_curier.html' %}
+{%load static%}
+{%block title%} Личный кабиент Курьера{%endblock%}
+
+{%block content%}
+<style>
+
+  
+</style>
+<a href="{% url 'edit'%}">Мой профиль</a>
+<p>Мой баланс: {{request.user.mycurier.balance}} Тенге</p>
+<!-- <caption>Список моих заказов</caption> -->
+<!-- <table class="Curier_tabl" border="1">
+ <thead> 
+   <tr> 
+    <th>Компания</th>
+    <th>Откуда</th>
+    <th class="none">Контакты</th>
+    <th>Куда</th>
+    <th class="none">Контакты</th>
+    <th>Вес</th>
+    <th>Стоимость доставки</th>
+    <th class="none">Курьеру</th>
+    <th class="none">Принято наличных</th>
+    <th class="none">К выплате</th>
+    <th class="none">Дата заявки</th>
+    <th>Время заявки</th>
+    <th>Текущий статус<th>
+    <th></th>
+    <th></th>
+  
+   </tr>
+   </thead> 
+   {%for i in orders%}
+   <tbody>
+   <tr data-label="clent">
+    <td data-label="Компания">{{i.client}}</td>
+    <td data-label="Откуда">{{i.from_address}}</td>
+    <td data-label="clent">{{i.from_phone}}</td> 
+    <td data-label="clent">{{i.to}}</td>
+    <td data-label="clent">{{i.to_phone}}</td> 
+    <td data-label="clent">{{i.ves}}</td>
+    <td data-label="clent" >{{i.itog}}</td>
+    <td data-label="clent">{{i.curier_money}}</td>
+    <td data-label="clent">{{i.nal}}</td>
+    <td data-label="clent">{{i.raschet}}</td>
+    <td data-label="clent">{{i.to_date}}</td> 
+    <td data-label="clent">{{i.to_date_until}}</td> 
+    <td data-label="clent">{{i.status}}</td>
+    <td data-label="clent">
+      <select class="statuses" id="{{i.pk}}">
+         <option value="Статус">Статус</option>
+        <option value="Забрал">Забрал</option>
+         <option value="Доставляется">Доставляется</option>
+           <option value="Доставлен">Доставлен</option>
+      </select>
+    </td>
+      <td data-label="clent">  <a href="{% url 'curier_cancel' id=i.pk %}">Отказаться</a></td>
+    <td>
+   </tr>
+   </tbody>
+  {%endfor%}
+  </table> -->
+  <h2>Новые заказы</h2>
+  <table border="1" id="table_empty">
+    <thead>
+   <tr> 
+    <th>Компания</th>
+    <th>Откуда</th>
+    <th>Куда</th>
+    <th>Вес</th>
+    <th>Стоимость доставки</th>
+    <th>Курьеру</th>
+    <th>Дата заявки</th>
+    <th>Время заявки</th>
+    <th>Действия</th>
+  
+  
+   </tr>
+    </thead>
+   {%for i in empty_orders%}
+   
+   <tr>
+    <td data-label="Компания">{{i.client}}</td>
+    <td data-label="Откуда">{{i.from_address}}</td>
+     
+    <td data-label="Куда">{{i.to}}</td>
+   
+    <td data-label="Вес">{{i.ves}}кг</td>
+    <td data-label="Доставка">{{i.itog}}</td>
+    <td data-label="Курьеру">{{i.curier_money}}</td>
+    
+   
+    <td data-label="Дата">{{i.to_date}}</td> 
+    <td data-label="Ограничения">{{i.to_date_until}}</td> 
+    
+    <td data-label="Действия">
+
+    <a href="{% url 'curier_select' id=i.pk %}">Принять</a>
+    </td>
+    
+   </tr>
+  {%endfor%}
+  </table>
+
+
+  <h1>Мой заказы</h1>
+  <table  id="table_ajax">
+   
+   <tr id="myhead"> 
+    <th>Компания</th>
+    <th>Откуда</th>
+    <th>Контакты</th>
+    <th>Куда</th>
+    <th>Контакты</th>
+    <th>Вес</th>
+    <th>Стоимость доставки</th>
+    <th>Курьеру</th>
+    <th>Принято наличных</th>
+    <th>К выплате</th>
+    <th>Дата заявки</th>
+    <th>Время заявки</th>
+    <th>Текущий статус<th>
+  
+   </tr>
+
+  </table>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" ></script> 
+
+
+<script src="{% static 'js/curier.js'%}"></script>
+  
+{%endblock content%}
