@@ -127,9 +127,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-STATICFILES_DIRS=(
-os.path.join(BASE_DIR, 'static'),
-    )
+
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
@@ -146,3 +144,7 @@ EMAIL_HOST_USER='tleugazy98@gmail.com'
 EMAIL_HOST_PASSWORD='sabina1998'
 EMAIL_PORT=587
 EMAIL_USE_TLS=True
+
+MEDIA_URL = '/media/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

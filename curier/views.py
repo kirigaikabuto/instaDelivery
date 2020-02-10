@@ -8,6 +8,7 @@ from django.utils import timezone
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import json
+from django.db.models import Sum
 
 def curier_register(request):
 	if request.method=="POST":
@@ -41,19 +42,27 @@ def curier_register(request):
 def private_сurier(request):
 	curier = request.user.mycurier
 	today  = timezone.now()
-	all_empty_orders = TestOrder.objects.all().filter(curier=None)
-	print(all_empty_orders)
-	orders = curier.choiced_curier.all()
+	orders = TestOrder.objects.filter(status="Забрал")
 	cxt={
 	    'orders':orders,
-	    'empty_orders':all_empty_orders
 	}
 	return render(request,"curiers/private.html",context=cxt)
+
+def private_сurier2(request):
+	curier = request.user.mycurier
+	today  = timezone.now()
+	all_empty_orders = TestOrder.objects.all().filter(curier=None)
+	cxt={
+	    'empty_orders':all_empty_orders
+	}
+	return render(request,"curiers/Moi_zakazy.html",context=cxt)
+
 def curier_select(request,id):
 	current_test_order = TestOrder.objects.get(pk=id)
 	current_test_order.curier = request.user.mycurier
 	current_test_order.save()
 	return redirect("private_сurier")
+	
 def curier_cancel(request,id):
 	current_test_order = TestOrder.objects.get(pk=id)
 	current_test_order.curier.balance+=(current_test_order.itog*35)//100
@@ -61,3 +70,29 @@ def curier_cancel(request,id):
 	current_test_order.curier = None
 	current_test_order.save()
 	return redirect("private_сurier")
+
+def rashet_view(request):
+	curier = request.user.mycurier
+	orders_completed = curier.choiced_curier.all().filter(status="Доставлен")
+	mydata = list(orders_completed.values_list("to_date"))
+	days=[]
+	for i in mydata:
+	    days.append(i[0])
+	days=set(days)
+	analyze=[]
+	for i in days:
+	    order = orders_completed.filter(to_date=i)
+	    sumi=0
+	    for j in order:
+	        sumi+=j.raschet
+	    temp={
+	    "day":i,
+	    "sum":int(sumi)
+	    }
+	    analyze.append(temp)
+	print(analyze)
+	ctx={
+		"orders_completed":orders_completed,
+		"analyze":analyze,
+	}
+	return render(request,"curiers/raschet.html",context=ctx)
