@@ -3,7 +3,7 @@ from django.core.paginator import Paginator,PageNotAnInteger,EmptyPage
 from .forms import PostForm
 from .models import Lalo,TestOrder
 from orders.models import Order
-from django.http import HttpResponse 
+from django.http import HttpResponse
 from django.utils import timezone
 import datetime
 from django.http import JsonResponse
@@ -51,7 +51,7 @@ def post_new(request):
 		return render(request,"Lallog/add_post.html",context=data)
 @csrf_exempt
 def get_calcul(request):
-	mydata = json.loads(request.body)
+	mydata = json.loads(request.read().decode('utf-8'))
 	print(mydata)
 	order = TestOrder(
 		client = request.user,
@@ -79,7 +79,7 @@ def get_calcul(request):
 # Create your views here.
 @csrf_exempt
 def status_change(request):
-	mydata = json.loads(request.body)
+	mydata = json.loads(request.read().decode('utf-8'))
 	print(mydata)
 	current_test_order=  TestOrder.objects.get(pk=int(mydata.get("id")))
 	current_test_order.status = mydata.get("value")
@@ -112,4 +112,4 @@ def all_curier_data(request):
 	    'orders':orders_json,
 	    'empty_orders':serializers.serialize("json",all_empty_orders)
 	}
-	return JsonResponse(cxt)	
+	return JsonResponse(cxt)

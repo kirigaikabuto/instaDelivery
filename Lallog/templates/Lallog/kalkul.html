@@ -5,7 +5,7 @@
 Заявка
 {%endblock%}
 {%block content%}
-  
+
 
 
 
@@ -17,7 +17,7 @@
 <div class="dost">
 <button class="marshrut">Пешком</button>
 <button class="marshrut">Авто</button>
-</div>  
+</div>
 <div class="ves">
 <button class="ves_value">до 3кг</button>
 <button class="ves_value">до 5кг</button>s
@@ -27,19 +27,19 @@
 <div class="otkuda">
 <div class="adres">
 <h4 class="napravlenya">Откуда</h4>
-<p><input  class="adres_size"  id="origin-input"  type="text" placeholder="Введите адрес забора"><input type="hidden" class="adres_size" id="from" placeholder="adr" value=""></p>	
+<p><input  class="adres_size"  id="origin-input"  type="text" placeholder="Введите адрес забора"><input type="hidden" class="adres_size" id="from" placeholder="adr" value=""></p>
 
 </div>
 <div class="data">
-<p><input type="text" placeholder="Сотовый отправителя" id="from_phoner"></p>	
+<p><input type="text" placeholder="Сотовый отправителя" id="from_phoner"></p>
 <!-- <p>Забрать
 <select name="data1" id="data1">
-<option value="data">Сегодня</option>	
+<option value="data">Сегодня</option>
 <option value="data">Завтра</option>
 </select> -->
 </p>
-<p><textarea name="Komment" id="comment1" cols="30" rows="5" placeholder="Дополнительно: номер офиса или квартиры, имя отправителя, габариты(если обёмное)"></textarea></p>	
-</div>	
+<p><textarea name="Komment" id="comment1" cols="30" rows="5" placeholder="Дополнительно: номер офиса или квартиры, имя отправителя, габариты(если обёмное)"></textarea></p>
+</div>
 
 
 </div>
@@ -48,14 +48,14 @@
 <div class="kuda">
 <div class="adres">
 <h4 class="napravlenya">Куда</h4>
-<p> <input id="destination-input"  class="adres_size" type="text" placeholder="Введите адрес доставки"><input type="hidden" class="adres_size" id="to" placeholder="adr" value=""></p>	
+<p> <input id="destination-input"  class="adres_size" type="text" placeholder="Введите адрес доставки"><input type="hidden" class="adres_size" id="to" placeholder="adr" value=""></p>
 <input type="hidden" id="distance" value="0">
 </div>
 <div class="data">
 <p><input type="text" placeholder="Сотовый получателя" id="phone_number2"></p>
-<p>Доставить    	
+<p>Доставить
 <select name="data1" id="data_1">
-<option value='{{ mydate |date:"d F"}}'>{{ mydate |date:"d F"}}</option>	
+<option value='{{ mydate |date:"d F"}}'>{{ mydate |date:"d F"}}</option>
 <option value='{{ mydate1 |date:"d F"}}'>{{ mydate1 |date:"d F"}}</option>
 <option value='{{ mydate2 |date:"d F"}}'>{{ mydate2 |date:"d F"}}</option>
 <option value='{{ mydate3 |date:"d F"}}'>{{ mydate3 |date:"d F"}}</option>
@@ -63,10 +63,10 @@
 <option value='{{ mydate5 |date:"d F"}}'>{{ mydate5 |date:"d F"}}</option>
 </select>
 </p>
-<p>Доставить до	
+<p>Доставить до
 
 <select name="data1" id="data_to_until" >
-<option value="12.00">12.00</option>	
+<option value="12.00">12.00</option>
 <option value="data">13.00</option>
 <option value="data">14.00</option>
 <option value="data">15.00</option>
@@ -77,16 +77,16 @@
 <option value="data">20.00</option>
 </select>
 </p>
-<p> 	
+<p>
 <select name="data1" id="money" onchange="fun1()">
-<option value="beznal">Денежных операций нет</option>	
+<option value="beznal">Денежных операций нет</option>
 <option value="nal">Получить наличные</option>
 <input id="summa" type="text" placeholder="Сумма" class="form-control"  name="summa_kl">
 </select>
 </p>
 <!-- <p><input type="text" placeholder="Сумма"></p>	 -->
-<p><textarea name="Komment" id="comment2" cols="30" rows="5" placeholder="Дополнительно: номер офиса или квартиры, имя отправителя, габариты(если обёмное)"></textarea></p>	
-</div>	
+<p><textarea name="Komment" id="comment2" cols="30" rows="5" placeholder="Дополнительно: номер офиса или квартиры, имя отправителя, габариты(если обёмное)"></textarea></p>
+</div>
 </div>
 
 <div class="chto">
@@ -108,20 +108,20 @@
 <p>Доставка:
 <input id="itogo" type="text">
 
-</p>	
+</p>
 <p>
-Получить наличные 
+Получить наличные
 <input id="nal" type="text" value="0">
 	</p>
 	<p>
-Расчет 
+Расчет
 <input id="raschet" type="text"  value="0">
 	</p>
 <div class="itogo_button">
 	{%csrf_token%}
 <button id="send">Отправить заявку</button>
 
-</div>  
+</div>
 </div>
 </div>
 
@@ -140,7 +140,7 @@
 
         }
     #right-panel input{
-        
+
 
       }
     #origin-input{
@@ -167,7 +167,7 @@
     text-overflow: ellipsis;
 
     }
-   
+
     html, body {
         height: 100%;
         margin: 0;
@@ -202,15 +202,15 @@
 
         <div class="lol" >
     <div>
-       
-    
+
+
 
     </div>
 
     <div>
-       
+
     </div>
-    
+
      <div  id="mode-selector" class="controls" style="display: none;">
             <input type="radio" name="type" id="changemode-walking" checked="checked">
             <label for="changemode-walking">Walking</label>
@@ -221,23 +221,24 @@
 
             <input type="radio" name="type" id="changemode-driving">
             <label for="changemode-driving">Driving</label>
-          
-        </div>   
-             
+
+        </div>
+
           </div>
-    
+
         </form>
-       
+
     </div>
-  
+
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="{% static 'js/main.js'%}">
-    
+
     </script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAvJTRsVCL84wIAUNH0NFX0mhPCOvNWtrw&libraries=places&callback=initMap" async defer></script>
 
-<script src="https://code.jquery.com/jquery-3.4.1.min.js" ></script> 
+<script src="https://code.jquery.com/jquery-3.4.1.min.js" ></script>
 <script src="{% static 'js/form.js'%}"></script>
+<script src="{% static 'js/main.js'%}"></script>
 
 
 {%endblock%}
