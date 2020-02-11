@@ -29,7 +29,6 @@ $(document).ready(function() {
 
     }
     var table_empty = document.querySelector("#table_empty");
-    alert("ASdsd")
 
     function create_table() {
         var token = '{%csrf_token%}';
@@ -61,10 +60,11 @@ $(document).ready(function() {
             let tr = document.createElement("tr");
             let a = document.createElement("a");
             for (let key of Object.keys(order)) {
+                console.log(key)
                 let td = document.createElement("td");
                 td.innerHTML = order[key];
                 td.setAttribute("data-label", key);
-                if (order[key] === "Забрал") {
+                if (order["Статус"] !== "Ожидание") {
                     a.style.display = "none";
                 }
                 tr.appendChild(td);
