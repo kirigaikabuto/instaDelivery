@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect,HttpResponse
 from .forms import CurierRegisterForm
 from users.forms import UserRegisterForm
-from .models import Curier
+from .models import Curier,Changes
 from django.core.mail import send_mail
 from Lallog.models import Lalo,TestOrder
 from django.utils import timezone
@@ -59,16 +59,25 @@ def private_сurier2(request):
 
 def curier_select(request,id):
 	current_test_order = TestOrder.objects.get(pk=id)
+	change = Changes.objects.create(user=request.user.mycurier,balance_before=request.user.mycurier.balance+((current_test_order.itog*35)//100),summa=((current_test_order.itog*35)//100),reason="Взял заказ")
+	change.save()
 	current_test_order.curier = request.user.mycurier
 	current_test_order.save()
+
+
 	return redirect("private_сurier")
 	
 def curier_cancel(request,id):
 	current_test_order = TestOrder.objects.get(pk=id)
-	current_test_order.curier.balance+=(current_test_order.itog*35)//100
+
+	current_test_order.curier.balance+=((current_test_order.itog*35)//100)-50
+	change = Changes.objects.create(user=request.user.mycurier,balance_before=current_test_order.curier.balance,summa=-(((current_test_order.itog*35)//100)+50),reason="Отменил Заказ")
+	change.save()
 	current_test_order.curier.save()
 	current_test_order.curier = None
+	current_test_order.status = "Ожидание"
 	current_test_order.save()
+
 	return redirect("private_сurier")
 
 def rashet_view(request):
@@ -96,3 +105,13 @@ def rashet_view(request):
 		"analyze":analyze,
 	}
 	return render(request,"curiers/raschet.html",context=ctx)
+def curier_history(request):
+    histories = Changes.objects.all().filter(user=request.user.mycurier)
+    total=0
+    for i in histories:
+        total+=i.summa
+    ctx={
+    "history":histories,
+    "total":total,
+    }
+    return render(request,"curiers/history.html",context=ctx)

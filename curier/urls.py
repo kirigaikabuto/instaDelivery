@@ -8,4 +8,5 @@ urlpatterns = [
     path('private_curier/select/<int:id>',views.curier_select,name="curier_select"),
     path('private_curier/cancel/<int:id>',views.curier_cancel,name="curier_cancel"),
     path("private_curier_raschet/",views.rashet_view,name="curier_rashet"),
+    path("private_curier_history/",views.curier_history,name="curier_history"),
 ]
