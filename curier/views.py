@@ -80,10 +80,20 @@ def curier_cancel(request,id):
 
 	return redirect("private_сurier")
 
-def rashet_view(request):
+def rashet_view(request,day):
 	curier = request.user.mycurier
-	orders_completed = curier.choiced_curier.all().filter(status="Доставлен")
+	orders_completed=None
+	alldaysorders=curier.choiced_curier.all().filter(status="Доставлен")
+	if day=="all":
+	    orders_completed = curier.choiced_curier.all().filter(status="Доставлен")
+	else:
+	    orders_completed = curier.choiced_curier.all().filter(status="Доставлен",to_date=day)
 	mydata = list(orders_completed.values_list("to_date"))
+	mydata1 = list(alldaysorders.values_list("to_date"))
+	alldays=[]
+	for i in mydata1:
+	    alldays.append(i[0])
+	alldays = set(alldays)
 	days=[]
 	for i in mydata:
 	    days.append(i[0])
@@ -103,13 +113,15 @@ def rashet_view(request):
 	ctx={
 		"orders_completed":orders_completed,
 		"analyze":analyze,
+		"alldays":alldays,
 	}
 	return render(request,"curiers/raschet.html",context=ctx)
 def curier_history(request):
     histories = Changes.objects.all().filter(user=request.user.mycurier)
     total=0
     for i in histories:
-        total+=i.summa
+    		if i.reason!="Пополнение Админом":
+    				total+=i.summa
     ctx={
     "history":histories,
     "total":total,

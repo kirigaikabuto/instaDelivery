@@ -6,6 +6,12 @@
 <p>Мой баланс: {{request.user.mycurier.balance}} Тенге</p>
 
 <h2>Заказы</h2>
+<ul>
+    <li style="float:left;margin-left: 20px;text-decoration: none"><a href="{% url 'curier_rashet' day='all'%}">Все</a></li>
+    {%for i in alldays%}
+    <li style="float:left;margin-left: 20px;text-decoration: none"><a href="{% url 'curier_rashet' day=i%}">{{i}}</a></li>
+    {%endfor%}
+</ul>
 <table border="1" id="table_empty">
     <thead>
         <tr>

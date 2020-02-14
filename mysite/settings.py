@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'curier',
     'orders',
     'Map',
+    "adminapp"
 ]
 
 MIDDLEWARE = [

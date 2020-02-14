@@ -10,6 +10,7 @@ urlpatterns = [
     path('users/',include('users.urls')),
     path('curiers/',include('curier.urls')),
     path('maps/', include('Map.urls')),
+    path("adminpanel/",include("adminapp.urls"))
     
   
 ]

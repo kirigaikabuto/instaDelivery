@@ -1,0 +1,16 @@
+{%extends 'adminapp/base.html'%} {%block title%} Admin Panel {%endblock%} {%block body%}
+<table border="1">
+    <tr>
+        <th>Курьер</th>
+        <th>Баланс</th>
+        <th>Действия</th>
+    </tr>
+    {%for i in curiers%} 
+    <tr>
+    <td>{{i.user.username}}</td>
+    <td>{{i.balance}}</td>
+    <td><a href="{%url 'balance_add_form' id=i.pk%}">Пополнить Баланс</a></td>
+    </tr>
+    {%endfor%}
+</table>
+{%endblock%}

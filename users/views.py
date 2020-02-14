@@ -89,7 +89,36 @@ def user_logout(request):
 	logout(request)
 	return redirect("Home")
 
-
+def private_success(request):
+    orders = TestOrder.objects.filter(client=request.user,status="Доставлен")
+    cxt={
+    "orders":orders
+    }
+    return render(request,"users/private2.html",context=cxt)
+def private_raschet(request):
+    client = request.user
+    orders_completed = TestOrder.objects.filter(status="Доставлен",client=client)
+    mydata = list(orders_completed.values_list("to_date"))
+    days=[]
+    for i in mydata:
+        days.append(i[0])
+    days=set(days)
+    analyze=[]
+    for i in days:
+	    order = orders_completed.filter(to_date=i)
+	    sumi=0
+	    for j in order:
+	        sumi+=j.raschet
+	    temp={
+	    "day":i,
+	    "sum":int(sumi)
+	    }
+	    analyze.append(temp)
+    print(analyze)
+    ctx={
+		"analyze":analyze,
+	}
+    return render(request,"users/raschet.html",context=ctx)
 def edit(request):
 	if request.method=='POST':
 		user_form= UserEditForm(instance=request.user, data=request.POST)

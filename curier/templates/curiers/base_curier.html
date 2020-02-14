@@ -33,7 +33,7 @@
             <a class="menu-item" href="{% url 'Home' %}">Главная</a>
             <a class="menu-item" href="{% url 'private_сurier2' %}">Новые заказы</a>
             <a class="menu-item" href="{% url 'private_сurier' %}">Мой заказы</a>
-            <a class="menu-item" href="{% url 'curier_rashet' %}">Кабинер расчёта</a>
+            <a class="menu-item" href="{% url 'curier_rashet' day='all'%}">Кабинер расчёта</a>
             <a class="menu-item" href="{% url 'curier_history' %}">История</a>
             <a class="menu-item" href="{% url 'user_logout' %}">Выйти</a> {%else%}
             <a class="menu-item" href="{% url 'user_login' %}">Авторизация</a> {%endif%}
