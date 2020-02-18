@@ -1,0 +1,30 @@
+{%extends 'adminapp/base.html'%} {%block title%} Orders {%endblock%} {%block body%}
+<form method="POST" action="{% url 'orders_all'%}">
+    {% csrf_token %}
+    <input type="text" name="search">
+    <select name="parameter">
+        <option value="curier">Курьер</option>
+        <option value="client">Клиент</option>
+        <option value="to_date">Дата доставки</option>
+    </select>
+    <input type="submit" value="Search">
+</form>
+<table border="1">
+    <tr>
+        {%for i in fields%}
+        <th>{{i}}</th>
+        {%endfor%}
+    </tr>
+   
+        {%for order in orders%}
+         <tr>
+            <td>{{order.id}}</td>
+            <td>{{order.client}}</td>
+            <td>{{order.curier.user.username}}</td>
+            <td>{{order.to_date}}</td>
+            </tr>
+        {%endfor%}
+    
+
+</table>
+{%endblock%}

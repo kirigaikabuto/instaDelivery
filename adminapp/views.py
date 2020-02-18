@@ -1,8 +1,16 @@
 from django.shortcuts import render,redirect
 from curier.models import Curier,Changes
+from Lallog.models import TestOrder
+from django.utils import timezone
+import datetime
 # Create your views here.
 def index(request):
-    curiers = Curier.objects.all()
+    curiers=None
+    if request.method=="POST":
+        username = request.POST.get("search")
+        curiers = Curier.objects.filter(user__username__contains=username)
+    else:
+        curiers = Curier.objects.all()
     cxt={
         "curiers":curiers
     }
@@ -23,3 +31,28 @@ def balance_add_form_action(request):
     change.save()
     curren_curier.save()
     return redirect("curiers")
+
+def orders_all(request):
+    orders=None
+    
+    if request.method=="POST":
+        value = request.POST.get("search")
+        field = request.POST.get("parameter")
+        if field=="curier":
+            orders=TestOrder.objects.filter(curier__user__username__contains=value)
+        elif field=="client":
+            orders=TestOrder.objects.filter(client__username__contains=value)
+        elif field=="to_date":
+            orders=TestOrder.objects.filter(to_date__contains=value)
+    else:
+    
+        mydate= datetime.date.today().strftime("%d %B")
+        mydate = "18 Февраль"
+        orders = TestOrder.objects.filter(to_date=mydate)
+    fields=[field.name for field in TestOrder._meta.get_fields()]
+
+    ctx={
+        "orders":orders,
+        "fields":fields
+    }
+    return render(request,"adminapp/orders.html",context=ctx)
