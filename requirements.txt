@@ -12,7 +12,7 @@ idna==2.8
 jdcal==1.4.1
 MarkupPy==1.14
 odfpy==1.4.1
-openpyxl==3.0.3
+openpyxl==2.6.4
 phonenumbers==8.10.22
 Pillow==6.2.1
 pytz==2019.3
