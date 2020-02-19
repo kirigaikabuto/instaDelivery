@@ -10,7 +10,7 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import json
 from django.core import serializers
-
+import requests
 def index(request):
 
 	return render(request,"Lallog/index.html")
@@ -71,6 +71,8 @@ def get_calcul(request):
 		raschet=mydata.get("raschet")
 		)
 	order.save()
+	text="Новый заказ"+order.from_address+" "+order.to+" "+order.to_date_until
+	sendFromTelegram("-366408539",text)
 	otvet = {
 	"message":"Заявка отправлена!",
 	"arr":json.dumps(mydata)
@@ -113,3 +115,8 @@ def all_curier_data(request):
 	   
 	}
 	return JsonResponse(cxt)
+def sendFromTelegram(chat_id,text):
+	url="https://api.telegram.org/bot750959409:AAHp1yaOSkMhvwdWVbxZMIw9H-Au8oCWJtA/"
+	params = {'chat_id': chat_id, 'text': text}
+	method = 'sendMessage'
+	resp = requests.post(url + method, params)

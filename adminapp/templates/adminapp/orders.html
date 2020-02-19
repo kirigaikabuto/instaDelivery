@@ -1,4 +1,11 @@
 {%extends 'adminapp/base.html'%} {%block title%} Orders {%endblock%} {%block body%}
+<div>
+    <ul>
+        <li> <a href="{% url 'orders_all'%}">Все заказы</a></li>
+        <li> <a href="{% url 'orders_today'%}">Сегодня</a></li>
+        <li> <a>Завтра</a></li>
+    </ul>
+</div>
 <form method="POST" action="{% url 'orders_all'%}">
     {% csrf_token %}
     <input type="text" name="search">

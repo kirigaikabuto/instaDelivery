@@ -11,7 +11,8 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
-
+# import locale
+# locale.setlocale(locale.LC_ALL,"ru_RU.utf8")
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -45,7 +46,8 @@ INSTALLED_APPS = [
     'curier',
     'orders',
     'Map',
-    "adminapp"
+    "adminapp",
+    'import_export',
 ]
 
 MIDDLEWARE = [
