@@ -18,9 +18,13 @@
 <div class="container">
 <form method="post" action="{% url 'user_login' %}">
 {% csrf_token %}
-<input type="text" name="username">
-<input type="password" name="password">
-<button  type="submit">Log in</button>
+<div class="name">
+<input class="log_text" type="text" name="username">
+</div>
+<div class="password">
+<input class="log_text" type="password" name="password">
+</div>
+<button class="log_in" type="submit">Авторизация</button>
 </form>
 </div>
 

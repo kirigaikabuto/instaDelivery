@@ -1,10 +1,7 @@
- {%extends 'Lallog/base.html'%} {%load static%} {%block title%} Заявка {%endblock%} {%block content%}
 
-
-
-
-
-
+ {%extends 'Lallog/base.html'%} 
+ {%load static%} {%block title%} 
+ Заявка {%endblock%} {%block content%}
 
 
 <div class="kalkul">
@@ -49,7 +46,8 @@
             <p><input type="text" placeholder="Сотовый получателя" id="phone_number2"></p>
             <p>Доставить
                 <select name="data1" id="data_1">
-<option value='{{ mydate |date:"d F"}}'>{{ mydate |date:"d F"}}</option>	
+<option value='Выберите дату'>Выберите Дату</option>	
+<option value='{{ mydate |date:"d F"}}'>{{ mydate |date:"d F"}}</option>    
 <option value='{{ mydate1 |date:"d F"}}'>{{ mydate1 |date:"d F"}}</option>
 <option value='{{ mydate2 |date:"d F"}}'>{{ mydate2 |date:"d F"}}</option>
 <option value='{{ mydate3 |date:"d F"}}'>{{ mydate3 |date:"d F"}}</option>
@@ -60,7 +58,7 @@
             <p>Доставить до
 
                 <select name="data1" id="data_to_until">
-<option value="12.00">12.00</option>	
+<option value="Выберите время">Выберите время</option>	
 <option value="13.00">13.00</option>
 <option value="14.00">14.00</option>
 <option value="15.00">15.00</option>

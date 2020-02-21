@@ -6,11 +6,11 @@
 
 
 {%block content%}
-<div class="container">
+<div class="register_all">
 <form method="post">
 {% csrf_token%}
 {{register_form | crispy}}
-<button  type="submit">Save</button>
+<button  class="reg_button" type="submit">Сохранить</button>
 </form>
 </div>
 {%endblock%}
