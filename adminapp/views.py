@@ -1,10 +1,13 @@
 from django.shortcuts import render,redirect
+from django.http import JsonResponse
 from curier.models import Curier,Changes
 from Lallog.models import TestOrder
 from django.utils import timezone
 import datetime
 import locale
-# Create your views here.
+from dal import autocomplete
+from django.views.decorators.csrf import csrf_exempt
+import json
 def index(request):
     curiers=None
     if request.method=="POST":
@@ -14,6 +17,7 @@ def index(request):
         curiers = Curier.objects.all()
     cxt={
         "curiers":curiers
+
     }
     return render(request,"adminapp/curiers.html",context=cxt)
 def balance_add_form(request,id):
@@ -76,3 +80,34 @@ def orders_today(request):
         "fields":fields
     }
     return render(request,"adminapp/orders.html",context=ctx)
+@csrf_exempt
+def live_search(request):
+    mydata = json.loads(request.read().decode('utf-8'))
+    parameter = mydata.get("parameter")
+    search = mydata.get("search")
+    orders=[]
+    if parameter=="curier":
+        testorders=TestOrder.objects.filter(curier__user__username__contains=search)
+        curiers = [x.curier.user.username for x in testorders]
+        for i in curiers:
+            if i not in orders:
+                orders.append(i)
+    elif parameter=="client":
+        testorders = TestOrder.objects.filter(client__username__contains=search)
+        clients = [x.client.username for x in testorders]
+        for i in clients:
+            if i not in orders:
+                orders.append(i)
+    elif parameter=="to_date":
+        testorders = TestOrder.objects.filter(to_date__contains=search)
+        dates = [x.to_date for x in testorders]
+
+        for i in dates:
+            if i not in orders:
+                orders.append(i)
+    otvet = {
+        "message": "Заявка отправлена!",
+        "arr": json.dumps(orders)
+    }
+    return JsonResponse(otvet)
+

@@ -48,6 +48,8 @@ INSTALLED_APPS = [
     'Map',
     "adminapp",
     'import_export',
+    'dal',
+    'dal_select2'
 ]
 
 MIDDLEWARE = [

@@ -1,11 +1,14 @@
-{%extends 'adminapp/base.html'%} {%block title%} Admin Panel {%endblock%} {%block body%}
+{%extends 'adminapp/base.html'%}
+
+{%block title%} Admin Panel {%endblock%} {%block body%}
 <form method="POST" action="{% url 'curiers'%}">
 {% csrf_token %}
-<input type="text" name="search">
-<select name="parameter">
+<input type="text" name="search" id="search">
+<select name="parameter" id="parameter">
 <option value="curier">
 Курьер
 </option>
+
 </select>
 </form>
 <table border="1">
@@ -22,4 +25,5 @@
     </tr>
     {%endfor%}
 </table>
+
 {%endblock%}
